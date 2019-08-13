@@ -2,7 +2,7 @@ import pygame
 import sys
 from models.ball import Ball
 from models.pallet import Pallet
-
+from models.wall import Wall
 
 class Game:
     def __init__(self, window_width: int, window_height: int, frames_x_seconds: int):
@@ -20,6 +20,7 @@ class Game:
         pygame.key.set_repeat(30) # Retraso en milisegundos
         self.ball = Ball()
         self.pallet = Pallet()
+        self.wall = Wall()
 
     def run(self):
 
@@ -37,5 +38,8 @@ class Game:
 
             self.window.blit(self.ball.image, self.ball.rect) # Draw Ball
             self.window.blit(self.pallet.image, self.pallet.rect) # Draw Pallet
+            
+            # Dibujar ladrillos
+            self.wall.draw(self.window)
 
             pygame.display.flip()
