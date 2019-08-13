@@ -1,6 +1,7 @@
 import pygame
 import sys
 from models.ball import Ball
+from models.pallet import Pallet
 
 
 class Game:
@@ -16,7 +17,9 @@ class Game:
         )
 
         self.clock = pygame.time.Clock()
+        pygame.key.set_repeat(30) # Retraso en milisegundos
         self.ball = Ball()
+        self.pallet = Pallet()
 
     def run(self):
 
@@ -24,11 +27,15 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
+                elif event.type == pygame.KEYDOWN:
+                    self.pallet.update(event)
 
             self.window.fill(self.color_rgb_blue)
             self.clock.tick(self.frames_x_seconds)
+
             self.ball.update()
 
             self.window.blit(self.ball.image, self.ball.rect) # Draw Ball
+            self.window.blit(self.pallet.image, self.pallet.rect) # Draw Pallet
 
             pygame.display.flip()
