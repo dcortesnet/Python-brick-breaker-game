@@ -26,3 +26,11 @@ class Ball(pygame.sprite.Sprite):
         # print(self.rect.right, 'Right')
         # print(self.rect.top, 'Top')
 
+    def collide_y(self):
+        """ Revierte la dirreción de eje Y """
+        self.speed_y = self.speed_y * -1
+
+    def collide_x(self):
+        """ Revierte la dirreción de eje X """
+        self.speed_x = self.speed_x * -1
+
