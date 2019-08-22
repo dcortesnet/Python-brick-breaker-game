@@ -7,7 +7,7 @@ class Wall(pygame.sprite.Group):
         pygame.sprite.Group.__init__(self)
 
         self.pos_x = 0
-        self.pos_y = 0
+        self.pos_y = 20
 
         # 640 / 16 = Cantidad de ladrillos por fila
 
