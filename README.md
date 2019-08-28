@@ -21,7 +21,11 @@ ejecutar comando
 ```
 pip install requirements.txt
 ```
- 
- 
+
+# Correr juego
+
+```
+python main.py
+```
 
 
