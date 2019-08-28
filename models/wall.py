@@ -13,6 +13,7 @@ class Wall(pygame.sprite.Group):
 
         # Construcción de muro
         # Cantidad de ladrillos múltiplos de 16
+
         for x in range(0, 64):
 
             if self.pos_x >= WINDOW_WIDTH:
@@ -22,6 +23,7 @@ class Wall(pygame.sprite.Group):
             brick = Brick((self.pos_x, self.pos_y))
 
             # Agregar Sprite al grupo
+
             self.add(brick)
             self.pos_x = self.pos_x + brick.rect.width
             

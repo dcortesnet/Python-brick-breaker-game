@@ -19,17 +19,20 @@ class Game:
         self.color_rgb_blue   = (0, 0, 64)
         self.color_rgb_white  = (255, 255, 255)
         self.points           = 0
+        self.lives            = 3
+        self.ball_in_pallet  = True
 
         self.window = pygame.display.set_mode(
             (self.window_width, self.window_height)
         )
 
-        self.clock  = pygame.time.Clock()
-        self.ball   = Ball()
-        self.pallet = Pallet()
-        self.wall   = Wall()
+        self.clock          = pygame.time.Clock()
+        self.ball: Ball     = Ball()
+        self.pallet: Pallet = Pallet()
+        self.wall: Wall     = Wall()
 
     def run(self):
+        """ Método Principal loop del juego """
 
         while True:
             for event in pygame.event.get():
@@ -38,33 +41,60 @@ class Game:
                 elif event.type == pygame.KEYDOWN:
                     self.pallet.update(event)
 
+                    # Evento de lanzar la bolita
+                    if self.ball_in_pallet == True and event.key == pygame.K_SPACE:
+                        self.ball_in_pallet = False
+                        self.ball
+
+
             # Rellenar pantalla con color azul
             self.window.fill(self.color_rgb_blue)
-            self.show_points()
 
+            # Dibujar, Actualizar objetos o cambios de attr en pantalla
+
+            self.show_points()
+            self.show_lives()
             self.clock.tick(self.frames_x_seconds)
-            self.ball.update()
+
+            # Esperando saque
+            if self.ball_in_pallet:
+                self.ball.rect.midbottom = self.pallet.rect.midtop
+            else:
+                self.ball.update()
+
             self.window.blit(self.ball.image, self.ball.rect) # Draw Ball
             self.window.blit(self.pallet.image, self.pallet.rect) # Draw Pallet
-            
-            # Dibujar ladrillos
-            self.wall.draw(self.window)
 
-            # Colición entre pelota y paleta, recibe 2 sprite como agumento
-            # Regresa un bool
+
+            self.wall.draw(self.window)  # Dibujar ladrillos
+
+
+
             if pygame.sprite.collide_rect(self.ball, self.pallet):
+
+                # Colición entre pelota y paleta, recibe 2 sprite como agumento
+
                 self.ball.collide_y()
 
             # Colición entre pelota y Sprite collide ( El muro )
             # Un boleado con los spirte tocados deben ser destruidos
+
             self.collite_ball_in_wall()
 
             # Revisión si la bola sale del juego por abajo
-            if self.ball.rect.top > self.window_height:
-                # logica de perder
-                self.end_game()
-
             pygame.display.flip()
+
+            # Lógica para ganar el juego
+            if len(self.wall.sprites()) == 0:
+                self.win_game()
+
+            # Lógica de finalizar juego
+            if self.ball.rect.top > self.window_height:
+                if self.lives <= 1:
+                    self.end_game()
+                else:
+                    self.lives -= 1
+                    self.ball_in_pallet = True
 
     def collite_ball_in_wall(self):
         """ Se comprueba las coliciones en que eje fúe para cambiar direccion de la bolita,
@@ -89,22 +119,63 @@ class Game:
             # Al eliminar un ladrillo aumentamos la puntiación en +10
             self.points += 10
 
+
+
     def show_points(self):
-        font             = pygame.font.SysFont('Consolas', 20)
-        text_points      = font.render( 'Puntos : ' + str(self.points).zfill(5), True, self.color_rgb_white)
-        text_points_rect = text_points.get_rect()
+        """ Método que muestra los puntos en pantalla """
+
+        font                     = pygame.font.SysFont('Consolas', 20)
+        text_points              = font.render( 'Puntos : ' + str(self.points).zfill(5), True, self.color_rgb_white)
+        text_points_rect         = text_points.get_rect()
         text_points_rect.topleft = [0, 0]
         self.window.blit(text_points, text_points_rect)
 
+    def show_lives(self):
+        """ Método que muestra las vidas en pantalla """
+
+        font = pygame.font.SysFont('Consolas', 20)
+        text_lives               = font.render('Vidas : ' + str(self.lives), True, self.color_rgb_white)
+        text_lives_rect          = text_lives.get_rect()
+        text_lives_rect.topright = [self.window_width, 0]
+        self.window.blit(text_lives, text_lives_rect)
+
     def end_game(self):
+        """ Método encargado de finalizar juego en estado perdido """
+
         font               = pygame.font.SysFont('Arial', 72)
         text_end_game      = font.render('Juego Terminado', True, self.color_rgb_white)
         text_end_game_rect = text_end_game.get_rect()
+
         # Pos text en el centro del juego
+
         text_end_game_rect.center = [ self.window_width / 2, self.window_height / 2 ]
+
         # Dibujamos el texto en la pantalla
+
         self.window.blit(text_end_game, text_end_game_rect)
+
         # Actualización de la pantalla
+
+        pygame.display.flip()
+        time.sleep(3)
+        sys.exit()
+
+    def win_game(self):
+        """ Método encargado de finalizar el juego en estado ganado """
+        font = pygame.font.SysFont('Arial', 30)
+        text_win_game = font.render('Juego Ganado! Total Puntos : ' + str(self.points) , True, self.color_rgb_white)
+        text_win_game_rect = text_win_game.get_rect()
+
+        # Pos text en el centro del juego
+
+        text_win_game_rect.center = [self.window_width / 2, self.window_height / 2]
+
+        # Dibujamos el texto en la pantalla
+
+        self.window.blit(text_win_game, text_win_game_rect)
+
+        # Actualización de la pantalla
+
         pygame.display.flip()
         time.sleep(3)
         sys.exit()
