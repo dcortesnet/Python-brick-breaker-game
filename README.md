@@ -11,7 +11,17 @@ Contribuir con la librería  https://www.pygame.org/contribute.html
 
 # Instalación
 
+Para la instalación es necesario contar con:
 
+1. pip instalado
+2. versión de Python +3.5
+
+ejecutar comando
+
+```
+pip install requirements.txt
+```
+ 
  
 
 
