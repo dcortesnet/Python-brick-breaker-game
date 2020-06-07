@@ -17,15 +17,10 @@ class Ball(pygame.sprite.Sprite):
         self.rect.move_ip(self.speed_x, self.speed_y) # Se cambia el valor de rect en X,Y
 
         if self.rect.top <= 0:
-            self.speed_y = self.speed_y * -1
+            self.collide_y()
 
         if self.rect.left >= WINDOW_WIDTH or self.rect.right <= 0:
-            self.speed_x = self.speed_x * -1
-
-        # print(self.rect.bottom, 'Bottom')
-        # print(self.rect.left, 'Left')
-        # print(self.rect.right, 'Right')
-        # print(self.rect.top, 'Top')
+            self.collide_x()
 
     def collide_y(self):
         """ Revierte la dirección del eje Y """
