@@ -39,12 +39,9 @@ class Game:
                 if event.type == pygame.QUIT:
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
-                    self.update_pallet(event)
-                    # Evento de lanzar la bolita
-                    if self.ball_in_pallet == True and event.key == pygame.K_SPACE:
-                        self.ball_in_pallet = False
-
-            self.updateGame()
+                    self.check_move_pallet(event)
+                    
+            self.update_game()
             self.check_take_out()
             self.check_collide_ball_pallet() # 
             self.check_collite_ball_wall()  # Un boleado con los spirte tocados deben ser destruidos
@@ -52,7 +49,7 @@ class Game:
             self.check_end_game() # Lógica de finalizar juego
             pygame.display.flip() # Actualización de pantalla
 
-    def updateGame(self):
+    def update_game(self):
         """ Actualizar, dibuja y refrescar objetos en pantalla, fps """
         self.window.fill(self.color_rgb_blue) # Rellenar pantalla fondo azul
         self.show_points() # Mostrar puntos
@@ -62,21 +59,20 @@ class Game:
         self.window.blit(self.pallet.image, self.pallet.rect) # Draw Pallet
         self.wall.draw(self.window)  # Dibujar ladrillos
 
+    def check_move_pallet(self, event):
+        """ Método de verificación si el jugador movió la paleta izquierda y derecha """
+        self.pallet.update_pallet(event)
+        # Evento de lanzar la bolita
+        if self.ball_in_pallet == True and event.key == pygame.K_SPACE:
+            self.ball_in_pallet = False
+
     def check_take_out(self):
         """ Método de verificación si el jugador sacó la pelota y actualiza eje x y pelota """
         if self.ball_in_pallet:
             self.ball.rect.midbottom = self.pallet.rect.midtop
         else:
-            self.update_ball()
-
-    def update_ball(self):
-        """ Método de abstracción de actualización de pelota """
-        self.ball.update_ball()
-
-    def update_pallet(self, event):
-        """ Método de abstracción de actualización de la paleta """
-        self.pallet.update_pallet(event)
-
+            self.ball.update_ball()
+    
     def check_collide_ball_pallet(self):
         """ Método de verificación si la pelota colisionó con la paleta """
         if pygame.sprite.collide_rect(self.ball, self.pallet):
