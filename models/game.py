@@ -55,7 +55,7 @@ class Game:
             pygame.display.flip() # Actualización de pantalla
 
     def updateGame(self):
-        """ Actualizar refrescar objetos en pantalla """
+        """ Actualizar, dibuja y refrescar objetos en pantalla, fps """
         self.window.fill(self.color_rgb_blue) # Rellenar pantalla fondo azul
         self.show_points() # Mostrar puntos
         self.show_lives() # Mostrar vidas
