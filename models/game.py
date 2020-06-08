@@ -46,7 +46,7 @@ class Game:
                         self.ball_in_pallet = False
                         self.ball
 
-            self.update()
+            self.updateGame()
             self.check_take_out()
             self.check_collide_ball_pallet() # 
             self.collite_ball_in_wall()  # Un boleado con los spirte tocados deben ser destruidos
@@ -54,7 +54,7 @@ class Game:
             self.check_end_game() # Lógica de finalizar juego
             pygame.display.flip() # Actualización de pantalla
 
-    def update(self):
+    def updateGame(self):
         """ Actualizar refrescar objetos en pantalla """
         self.window.fill(self.color_rgb_blue) # Rellenar pantalla fondo azul
         self.show_points() # Mostrar puntos
