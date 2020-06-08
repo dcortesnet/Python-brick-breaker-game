@@ -5,13 +5,12 @@ from settings import WINDOW_WIDTH, WINDOW_HEIGHT
 class Pallet(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-
         self.image          = pygame.image.load('img/pallet.png')
         self.rect           = self.image.get_rect()
         self.rect.midbottom = ( WINDOW_WIDTH / 2, WINDOW_HEIGHT-10)
         self.speed_x        = 0
 
-    def update(self, event):
+    def updatePallet(self, event):
         """ Actualizar la posición dependiendo del evento del teclado
             Se escuchan las teclas izquierda y derecha
         """

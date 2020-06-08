@@ -39,7 +39,7 @@ class Game:
                 if event.type == pygame.QUIT:
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
-                    self.pallet.update(event)
+                    self.pallet.updatePallet(event)
 
                     # Evento de lanzar la bolita
                     if self.ball_in_pallet == True and event.key == pygame.K_SPACE:
@@ -70,7 +70,7 @@ class Game:
         if self.ball_in_pallet:
             self.ball.rect.midbottom = self.pallet.rect.midtop
         else:
-            self.ball.update()
+            self.ball.updateBall()
 
     def check_collide_ball_pallet(self):
         """ Método de verificación si la pelota colisionó con la paleta """

@@ -5,15 +5,13 @@ from settings import WINDOW_WIDTH, WINDOW_HEIGHT
 class Ball(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-
         self.image   = pygame.image.load('img/ball.png')
         self.rect    = self.image.get_rect()
         self.speed_x = 3
         self.speed_y = 3
 
-    def update(self):
+    def updateBall(self):
         """ Actualizar la posición actual y velocidad"""
-
         self.rect.move_ip(self.speed_x, self.speed_y) # Se cambia el valor de rect en X,Y
 
         if self.rect.top <= 0:
@@ -24,11 +22,9 @@ class Ball(pygame.sprite.Sprite):
 
     def collide_y(self):
         """ Revierte la dirección del eje Y """
-
         self.speed_y = self.speed_y * -1
 
     def collide_x(self):
         """ Revierte la dirección del eje X """
-
         self.speed_x = self.speed_x * -1
 
