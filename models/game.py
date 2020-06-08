@@ -46,56 +46,52 @@ class Game:
                         self.ball_in_pallet = False
                         self.ball
 
+            self.update()
+            self.check_take_out()
+            self.check_collide_ball_pallet() # 
+            self.collite_ball_in_wall()  # Un boleado con los spirte tocados deben ser destruidos
+            self.check_win_game() # Lógica para ganar el juego
+            self.check_end_game() # Lógica de finalizar juego
+            pygame.display.flip() # Actualización de pantalla
 
-            # Rellenar pantalla con color azul
-            self.window.fill(self.color_rgb_blue)
+    def update(self):
+        """ Actualizar refrescar objetos en pantalla """
+        self.window.fill(self.color_rgb_blue) # Rellenar pantalla fondo azul
+        self.show_points() # Mostrar puntos
+        self.show_lives() # Mostrar vidas
+        self.clock.tick(self.frames_x_seconds) # fps
+        self.window.blit(self.ball.image, self.ball.rect) # Draw Ball
+        self.window.blit(self.pallet.image, self.pallet.rect) # Draw Pallet
+        self.wall.draw(self.window)  # Dibujar ladrillos
 
-            # Dibujar, Actualizar objetos o cambios de attr en pantalla
 
-            self.show_points()
-            self.show_lives()
-            self.clock.tick(self.frames_x_seconds)
+    def check_take_out(self):
+        """ Método de verificación si el jugador sacó la pelota """
+        if self.ball_in_pallet:
+            self.ball.rect.midbottom = self.pallet.rect.midtop
+        else:
+            self.ball.update()
 
-            # Esperando saque
-            if self.ball_in_pallet:
-                self.ball.rect.midbottom = self.pallet.rect.midtop
+    def check_collide_ball_pallet(self):
+        """ Método de verificación si la pelota colisionó con la paleta """
+        if pygame.sprite.collide_rect(self.ball, self.pallet):
+            # Colición entre pelota y paleta, recibe 2 sprite como agumento
+            self.ball.collide_y()
+
+    def check_end_game(self):
+        """ Método de verificación si termino el juegó """
+        if self.ball.rect.top > self.window_height:
+            if self.lives <= 1:
+                self.end_game()
             else:
-                self.ball.update()
+                self.lives -= 1
+                self.ball_in_pallet = True
 
-            self.window.blit(self.ball.image, self.ball.rect) # Draw Ball
-            self.window.blit(self.pallet.image, self.pallet.rect) # Draw Pallet
-
-
-            self.wall.draw(self.window)  # Dibujar ladrillos
-
-
-
-            if pygame.sprite.collide_rect(self.ball, self.pallet):
-
-                # Colición entre pelota y paleta, recibe 2 sprite como agumento
-
-                self.ball.collide_y()
-
-            # Colición entre pelota y Sprite collide ( El muro )
-            # Un boleado con los spirte tocados deben ser destruidos
-
-            self.collite_ball_in_wall()
-
-            # Revisión si la bola sale del juego por abajo
-            pygame.display.flip()
-
-            # Lógica para ganar el juego
-            if len(self.wall.sprites()) == 0:
-                self.win_game()
-
-            # Lógica de finalizar juego
-            if self.ball.rect.top > self.window_height:
-                if self.lives <= 1:
-                    self.end_game()
-                else:
-                    self.lives -= 1
-                    self.ball_in_pallet = True
-
+    def check_win_game(self):
+        """ Método de verificación si gano el juegó """
+        if len(self.wall.sprites()) == 0:
+            self.win_game()
+        
     def collite_ball_in_wall(self):
         """ Se comprueba las coliciones en que eje fúe para cambiar direccion de la bolita,
             destruyendo la el ladrillo afectado en el muro
@@ -118,8 +114,6 @@ class Game:
 
             # Al eliminar un ladrillo aumentamos la puntiación en +10
             self.points += 10
-
-
 
     def show_points(self):
         """ Método que muestra los puntos en pantalla """
@@ -167,15 +161,12 @@ class Game:
         text_win_game_rect = text_win_game.get_rect()
 
         # Pos text en el centro del juego
-
         text_win_game_rect.center = [self.window_width / 2, self.window_height / 2]
 
         # Dibujamos el texto en la pantalla
-
         self.window.blit(text_win_game, text_win_game_rect)
 
         # Actualización de la pantalla
-
         pygame.display.flip()
         time.sleep(3)
         sys.exit()
