@@ -10,7 +10,7 @@ class Pallet(pygame.sprite.Sprite):
         self.rect.midbottom = ( WINDOW_WIDTH / 2, WINDOW_HEIGHT-10)
         self.speed_x        = 0
 
-    def updatePallet(self, event):
+    def update_pallet(self, event):
         """ Actualizar la posición dependiendo del evento del teclado
             Se escuchan las teclas izquierda y derecha
         """

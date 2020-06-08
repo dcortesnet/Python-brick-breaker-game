@@ -39,17 +39,15 @@ class Game:
                 if event.type == pygame.QUIT:
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
-                    self.pallet.updatePallet(event)
-
+                    self.update_pallet(event)
                     # Evento de lanzar la bolita
                     if self.ball_in_pallet == True and event.key == pygame.K_SPACE:
                         self.ball_in_pallet = False
-                        self.ball
 
             self.updateGame()
             self.check_take_out()
             self.check_collide_ball_pallet() # 
-            self.collite_ball_in_wall()  # Un boleado con los spirte tocados deben ser destruidos
+            self.check_collite_ball_wall()  # Un boleado con los spirte tocados deben ser destruidos
             self.check_win_game() # Lógica para ganar el juego
             self.check_end_game() # Lógica de finalizar juego
             pygame.display.flip() # Actualización de pantalla
@@ -64,13 +62,20 @@ class Game:
         self.window.blit(self.pallet.image, self.pallet.rect) # Draw Pallet
         self.wall.draw(self.window)  # Dibujar ladrillos
 
-
     def check_take_out(self):
-        """ Método de verificación si el jugador sacó la pelota """
+        """ Método de verificación si el jugador sacó la pelota y actualiza eje x y pelota """
         if self.ball_in_pallet:
             self.ball.rect.midbottom = self.pallet.rect.midtop
         else:
-            self.ball.updateBall()
+            self.update_ball()
+
+    def update_ball(self):
+        """ Método de abstracción de actualización de pelota """
+        self.ball.update_ball()
+
+    def update_pallet(self, event):
+        """ Método de abstracción de actualización de la paleta """
+        self.pallet.update_pallet(event)
 
     def check_collide_ball_pallet(self):
         """ Método de verificación si la pelota colisionó con la paleta """
@@ -92,7 +97,7 @@ class Game:
         if len(self.wall.sprites()) == 0:
             self.win_game()
         
-    def collite_ball_in_wall(self):
+    def check_collite_ball_wall(self):
         """ Se comprueba las coliciones en que eje fúe para cambiar direccion de la bolita,
             destruyendo la el ladrillo afectado en el muro
         """

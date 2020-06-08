@@ -10,7 +10,7 @@ class Ball(pygame.sprite.Sprite):
         self.speed_x = 3
         self.speed_y = 3
 
-    def updateBall(self):
+    def update_ball(self):
         """ Actualizar la posición actual y velocidad"""
         self.rect.move_ip(self.speed_x, self.speed_y) # Se cambia el valor de rect en X,Y
 
