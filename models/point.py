@@ -2,9 +2,9 @@ import pygame
 
 class Point:
     def __init__(self, points: int, color):
-        self.color = color
+        self.color  = color
         self.points = points
-        self.font = pygame.font.SysFont('Consolas', 20)
+        self.font   = pygame.font.SysFont('Consolas', 20)
 
     def draw(self, window):
         self.text_points = self.font.render( 'Puntos : ' + str(self.points).zfill(5), True, self.color)

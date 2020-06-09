@@ -7,18 +7,14 @@ from models.wall import Wall
 from models.brick import Brick
 from models.point import Point
 from models.live import Live
-
+from settings import WINDOW_WIDTH, WINDOW_HEIGHT, FRAMES_X_SECONDS
 pygame.init() # Necesario para el uso de fuentes
-
+pygame.display.set_caption('Juego de ladrillos en Python')
+pygame.key.set_repeat(30)
 class Game:
-    def __init__(self, window_width: int, window_height: int, frames_x_seconds: int):
-        pygame.key.set_repeat(30)
-        self.window_width     = window_width
-        self.window_height    = window_height
-        self.frames_x_seconds = frames_x_seconds
+    def __init__(self):
         self.color_rgb_blue   = (0, 0, 64)
         self.color_rgb_white  = (255, 255, 255)
-        self.lives            = 3
         self.ball_in_pallet   = True
         self.clock            = pygame.time.Clock()
         self.point            = Point(0, self.color_rgb_white)
@@ -26,9 +22,7 @@ class Game:
         self.ball: Ball       = Ball()
         self.pallet: Pallet   = Pallet()
         self.wall: Wall       = Wall()
-        self.window = pygame.display.set_mode(
-            (self.window_width, self.window_height)
-        )
+        self.window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 
     def run(self):
         """ Método Principal loop del juego """
@@ -41,7 +35,7 @@ class Game:
                     if self.ball_in_pallet == True and event.key == pygame.K_SPACE:
                         self.ball_in_pallet = False
             
-            self.clock.tick(self.frames_x_seconds)
+            self.clock.tick(FRAMES_X_SECONDS)
             self.window.fill(self.color_rgb_blue) 
             self.point.draw(self.window) 
             self.live.draw(self.window) 
@@ -88,7 +82,7 @@ class Game:
 
     def check_end_game(self):
         """ Método de verificación si termino el juegó """
-        if self.ball.rect.top > self.window_height:
+        if self.ball.rect.top > WINDOW_HEIGHT:
             if self.live.lives <= 1:
                 self.finish_game('loss')
             else:
@@ -110,7 +104,7 @@ class Game:
         font = pygame.font.SysFont('Arial', 72)
         text = font.render(description, True, self.color_rgb_white)
         text_rect = text.get_rect()
-        text_rect.center = [self.window_width / 2, self.window_height / 2] # Pos text en el centro del juego
+        text_rect.center = [WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2] # Pos text en el centro del juego
         self.window.blit(text, text_rect) # Dibujamos el texto en la pantalla
         pygame.display.flip()
         time.sleep(3)
