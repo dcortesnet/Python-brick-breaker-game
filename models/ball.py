@@ -10,10 +10,11 @@ class Ball(pygame.sprite.Sprite):
         self.speed_x = 3
         self.speed_y = 3
 
-    def update_ball(self):
-        """ Actualizar la posición actual y velocidad"""
-        self.rect.move_ip(self.speed_x, self.speed_y) # Se cambia el valor de rect en X,Y
+    def draw(self, window):
+        window.blit(self.image, self.rect)
 
+    def move(self):
+        self.rect.move_ip(self.speed_x, self.speed_y)
         if self.rect.top <= 0:
             self.collide_y()
 
