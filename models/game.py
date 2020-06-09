@@ -7,18 +7,17 @@ from models.wall import Wall
 from models.brick import Brick
 from models.point import Point
 from models.live import Live
-from settings import WINDOW_WIDTH, WINDOW_HEIGHT, FRAMES_X_SECONDS
+from settings import WINDOW_WIDTH, WINDOW_HEIGHT, FRAMES_X_SECONDS, COLOR_RGB_BLUE, COLOR_RGB_WHITE
+
 pygame.init() # Necesario para el uso de fuentes
 pygame.display.set_caption('Juego de ladrillos en Python')
 pygame.key.set_repeat(30)
 class Game:
     def __init__(self):
-        self.color_rgb_blue   = (0, 0, 64)
-        self.color_rgb_white  = (255, 255, 255)
         self.ball_in_pallet   = True
         self.clock            = pygame.time.Clock()
-        self.point            = Point(0, self.color_rgb_white)
-        self.live             = Live(3, self.color_rgb_white)
+        self.point: Point     = Point(0,COLOR_RGB_WHITE)
+        self.live: Live       = Live(3,COLOR_RGB_WHITE)
         self.ball: Ball       = Ball()
         self.pallet: Pallet   = Pallet()
         self.wall: Wall       = Wall()
@@ -36,7 +35,7 @@ class Game:
                         self.ball_in_pallet = False
             
             self.clock.tick(FRAMES_X_SECONDS)
-            self.window.fill(self.color_rgb_blue) 
+            self.window.fill(COLOR_RGB_BLUE) 
             self.point.draw(self.window) 
             self.live.draw(self.window) 
             self.ball.draw(self.window) 
@@ -102,7 +101,7 @@ class Game:
             description = 'Juego Perdido!'
         
         font = pygame.font.SysFont('Arial', 72)
-        text = font.render(description, True, self.color_rgb_white)
+        text = font.render(description, True, COLOR_RGB_WHITE)
         text_rect = text.get_rect()
         text_rect.center = [WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2] # Pos text en el centro del juego
         self.window.blit(text, text_rect) # Dibujamos el texto en la pantalla
