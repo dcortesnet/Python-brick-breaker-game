@@ -1,10 +1,10 @@
 import pygame
-from settings import WINDOW_WIDTH
+from settings import WINDOW_WIDTH, COLOR_RGB_WHITE
 
 class Live:
-    def __init__(self, lives: int, color):
-        self.color = color
-        self.lives = lives
+    def __init__(self):
+        self.color = COLOR_RGB_WHITE
+        self.lives = 3
         self.font = pygame.font.SysFont('Consolas', 20)
 
     def draw(self, window):

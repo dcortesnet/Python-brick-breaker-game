@@ -16,8 +16,8 @@ class Game:
     def __init__(self):
         self.ball_in_pallet   = True
         self.clock            = pygame.time.Clock()
-        self.point: Point     = Point(0,COLOR_RGB_WHITE)
-        self.live: Live       = Live(3,COLOR_RGB_WHITE)
+        self.point: Point     = Point()
+        self.live: Live       = Live()
         self.ball: Ball       = Ball()
         self.pallet: Pallet   = Pallet()
         self.wall: Wall       = Wall()

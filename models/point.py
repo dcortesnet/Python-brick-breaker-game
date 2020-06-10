@@ -1,9 +1,9 @@
 import pygame
-
+from settings import COLOR_RGB_WHITE
 class Point:
-    def __init__(self, points: int, color):
-        self.color  = color
-        self.points = points
+    def __init__(self):
+        self.points = 0
+        self.color  = COLOR_RGB_WHITE
         self.font   = pygame.font.SysFont('Consolas', 20)
 
     def draw(self, window):
