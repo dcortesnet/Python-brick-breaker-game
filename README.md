@@ -3,13 +3,13 @@
 Famoso juego rompe ladrillos programado con el lenguaje Python y su librería Pygame. 
 Este juego fue creado con el objetivo de aumentar el conocimiento de la librería como tal.
 
-# Acerca de Pygame
+## Acerca de Pygame
 
 https://www.pygame.org
 
 Contribuir con la librería  https://www.pygame.org/contribute.html
 
-# Instalación
+## Instalación
 
 Para la instalación es necesario contar con:
 
@@ -22,10 +22,8 @@ ejecutar comando
 pip install requirements.txt
 ```
 
-# Correr juego
+## Correr juego
 
 ```
 python main.py
 ```
-
-
