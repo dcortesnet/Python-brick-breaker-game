@@ -75,7 +75,7 @@ class Game:
                 self.ball.collide_x()
             else:
                 self.ball.collide_y()
-           
+
             self.wall.remove(brick)  # Eliminar ladrillo del muro Manualmente
             self.point.points += 10  # Al eliminar un ladrillo aumentamos la puntiación en +10
 
@@ -92,22 +92,20 @@ class Game:
         """ Método de verificación si gano el juegó """
         if len(self.wall.sprites()) == 0:
             self.finish_game('win')
-        
+
     def finish_game(self, type_of_completion: str):
         """ Método de visualización de finalización del juego """
         if type_of_completion == "win":
             description = 'Juego Ganado!'
         else:
             description = 'Juego Perdido!'
-        
+
         font = pygame.font.SysFont('Arial', 72)
         text = font.render(description, True, COLOR_RGB_WHITE)
         text_rect = text.get_rect()
         text_rect.center = [WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2] # Pos text en el centro del juego
         self.window.blit(text, text_rect) # Dibujamos el texto en la pantalla
         pygame.display.flip()
-        time.sleep(3)
-        sys.exit()
 
 
 

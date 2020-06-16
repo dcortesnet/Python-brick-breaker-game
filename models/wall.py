@@ -18,7 +18,3 @@ class Wall(pygame.sprite.Group):
             # Agregar Sprite al grupo
             self.add(brick)
             self.pos_x = self.pos_x + brick.rect.width
-            
-
-
-        
