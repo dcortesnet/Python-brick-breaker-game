@@ -106,6 +106,7 @@ class Game:
         text_rect.center = [WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2] # Pos text en el centro del juego
         self.window.blit(text, text_rect) # Dibujamos el texto en la pantalla
         pygame.display.flip()
-
+        time.sleep(3)
+        sys.exit()
 
 
