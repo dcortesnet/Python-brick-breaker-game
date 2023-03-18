@@ -5,9 +5,8 @@ Este juego fue creado con el objetivo de aumentar el conocimiento de la librerí
 
 ## Acerca de Pygame
 
-https://www.pygame.org
-
-Contribuir con la librería  https://www.pygame.org/contribute.html
+* https://www.pygame.org
+* https://www.pygame.org/contribute.html
 
 ## Instalación
 
